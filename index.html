@@ -49,7 +49,7 @@
          <button class="outline-none px-2 py-1 rounded-xl text-white bg-green-500" @click="TryAgain">Try Again</button>
      </div>
     </div>
-    <div class="w-8/12 items-center flex justify-center"><img :src="'/my_typing_lesson/public/images/'+image+'.png'" class="w-10/12"> </div>
+    <div class="w-8/12 items-center flex justify-center"><img :src="'/typing/public/images/'+image+'.png'" class="w-10/12"> </div>
 </div>
 <!--<script src="dist/main.js"></script>-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js" integrity="sha512-IQLehpLoVS4fNzl7IfH8Iowfm5+RiMGtHykgZJl9AWMgqx0AmJ6cRWcB+GaGVtIsnC4voMfm8f2vwtY+6oPjpQ==" crossorigin="anonymous"></script>
@@ -130,7 +130,7 @@ const app = new Vue({
 
         Load(index){
             this.currentLesson=index;
-            fetch(`/my_typing_lesson/public/lesson${this.currentLesson}.json`).then(async(res)=>{
+            fetch(`/typing/public/lesson${this.currentLesson}.json`).then(async(res)=>{
                 this.lesson1=await res.json();
                 console.log(this.lesson1)
             })
@@ -140,7 +140,7 @@ const app = new Vue({
         },
         GoToNext:function(){
             this.currentLesson+=1;
-            fetch(`/my_typing_lesson/public/lesson${this.currentLesson}.json`).then(async(res)=>{
+            fetch(`/typing/public/lesson${this.currentLesson}.json`).then(async(res)=>{
                 this.lesson1=await res.json();
                 console.log(this.lesson1)
             })
@@ -152,7 +152,7 @@ const app = new Vue({
             this.session=0;
             this.message='';
             this.current_error=0;
-            fetch(`/my_typing_lesson/public/lesson${this.currentLesson}.json`).then(async(res)=>{
+            fetch(`/typing/public/lesson${this.currentLesson}.json`).then(async(res)=>{
                 this.lesson1=await res.json();
                 console.log(this.lesson1)
                 this.show_noti=false;
@@ -181,7 +181,7 @@ const app = new Vue({
            image_asset:{
                get:function(){
                    console.log(this.image);
-                   return 'my_typing_lesson/public/images/'+this.image+'.png';},
+                   return 'typing/public/images/'+this.image+'.png';},
                set:function(){}
            },
            input:function(){
@@ -208,7 +208,7 @@ const app = new Vue({
     },
     mounted(){
 
-        fetch(`/my_typing_lesson/public/lesson${this.currentLesson}.json`).then(async(res)=>{
+        fetch(`/typing/public/lesson${this.currentLesson}.json`).then(async(res)=>{
             this.lesson1=await res.json();
             this.image=this.lesson1[this.session][0].value;
             console.log(this.image)
