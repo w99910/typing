@@ -154,7 +154,7 @@
 
             Load(index) {
                 this.currentLesson = index;
-                fetch(`/${this.host+'lesson'+this.currentLesson}.json`).then(async (res) => {
+                fetch(`${this.host+'lesson'+this.currentLesson}.json`).then(async (res) => {
                     this.lesson1 = await res.json();
                     console.log(this.lesson1)
                 })
@@ -164,7 +164,7 @@
             },
             GoToNext: function () {
                 this.currentLesson += 1;
-                fetch(`/${this.host+'lesson'+this.currentLesson}.json`).then(async (res) => {
+                fetch(`${this.host+'lesson'+this.currentLesson}.json`).then(async (res) => {
                     this.lesson1 = await res.json();
                     console.log(this.lesson1)
                 })
@@ -176,7 +176,7 @@
                 this.session = 0;
                 this.message = '';
                 this.current_error = 0;
-                fetch(`/${this.host+'lesson'+this.currentLesson}.json`).then(async (res) => {
+                fetch(`${this.host+'lesson'+this.currentLesson}.json`).then(async (res) => {
                     this.lesson1 = await res.json();
                     console.log(this.lesson1)
                     this.show_noti = false;
@@ -234,7 +234,7 @@
         },
         mounted() {
 
-            fetch(`/${this.host+'lesson'+this.currentLesson}.json`).then(async (res) => {
+            fetch(`${this.host+'lesson'+this.currentLesson}.json`).then(async (res) => {
                 this.lesson1 = await res.json();
                 this.image = this.lesson1[this.session][0].value;
                 console.log(this.image)
