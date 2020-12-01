@@ -2,10 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8a8060b3-7c49-43c0-b5b7-dec60aa95002" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/26thNov2020.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/26thNov2020.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/aws.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -40,7 +36,7 @@
       <updated>1606807952559</updated>
       <workItem from="1606807956853" duration="25000" />
       <workItem from="1606807999882" duration="599000" />
-      <workItem from="1606827298042" duration="2380000" />
+      <workItem from="1606827298042" duration="2643000" />
     </task>
     <servers />
   </component>
