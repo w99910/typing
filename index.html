@@ -8,287 +8,318 @@
     <link rel="stylesheet" href="public/index.css">
 </head>
 <body class="font-pop text-xl font-bold h-screen w-full overflow-hidden">
-<div class="sm:hidden min-h-full flex text-center justify-center items-center"><span>Hello,This Typing Website is not supported in mobile</span></div>
+<div class="sm:hidden min-h-full flex text-center justify-center items-center"><span>Hello,This Typing Website is not supported in mobile</span>
+</div>
 <div id="app" class="show_window relative flex flex-col px-10 items-center justify-center h-full w-full">
 
     <div class="w-full h-12 flex items-end justify-between my-2 mx-2">
         <div class="relative">
-            <div class="text-white absolute bottom-0 right-0 px-2 py-1 bg-gray-500 shadow-2xl -mb-24 z-20 w-full flex flex-col" v-show="dropDown">
+            <div class="text-white absolute bottom-0 right-0 px-2 py-1 bg-gray-500 shadow-2xl -mb-24 z-20 w-full flex flex-col"
+                 v-show="dropDown">
                 <span @click="Load(1)" class="cursor-pointer">Lesson 1</span>
                 <span @click="Load(2)" class="cursor-pointer">Lesson 2</span>
                 <span @click="Load(3)" class="cursor-pointer">Lesson 3</span>
                 <span @click="Load(4)" class="cursor-pointer">Lesson 4</span>
                 <span @click="Load(5)" class="cursor-pointer">Lesson 5</span>
             </div>
-            <button class="focus:outline-none border-none bg-blue-500 px-2 py-1" @click="dropDown=!dropDown">Choose Lesson</button>
+            <button class="focus:outline-none border-none bg-blue-500 px-2 py-1" @click="dropDown=!dropDown">Choose
+                Lesson
+            </button>
         </div>
         <h1>Current Lesson:<span class="text-orange-500">{{currentLesson}}</span></h1>
-            <div>Error:<span class="text-red-600">{{error}}</span></div>
+        <div>Error:<span class="text-red-600">{{error}}</span></div>
 
     </div>
     <div class="bg-gray-200 h-64 w-full flex flex-col justify-between p-4">
 
         <div class="bg-white h-full items-center relative justify-evenly text-center flex flex-col w-full">
             <div class="scroller w-full overflow-hidden flex">
-            <span v-for="a in combination" class="mx-4 w-16 p-2" :class="[(a.status=='done'?'text-green-600':(a.status=='error'?'text-red-600':'text-blue-600'))]">{{a.value}}</span>
+                <span v-for="a in combination" class="mx-4 w-16 p-2"
+                      :class="[(a.status=='done'?'text-green-600':(a.status=='error'?'text-red-600':'text-blue-600'))]">{{a.value}}</span>
 
             </div>
             <div class="w-full flex absolute bottom-0 left-0 overflow-hidden">
-                <span class="text-gray-200 text-md" v-show="input.length===0" >Click and Type Here if you can't type</span>
-            <span v-for="b in input" class="mx-4 p-2 w-10">{{b}}</span>
+                <span class="text-gray-200 text-md"
+                      v-show="input.length===0">Click and Type Here if you can't type</span>
+                <span v-for="b in input" class="mx-4 p-2 w-10">{{b}}</span>
             </div>
 
-            <input v-model="message" spellcheck="false" autofocus class="p-4 outline-none absolute bottom-0 left-0 text-transparent bg-transparent border-b w-full" style="letter-spacing: inherit">
+            <input v-model="message" spellcheck="false" autofocus
+                   class="p-4 outline-none absolute bottom-0 left-0 text-transparent bg-transparent border-b w-full"
+                   style="letter-spacing: inherit">
         </div>
 
     </div>
-    <div class="absolute flex flex-col items-center justify-center h-full z-10 w-full transparent-shade" v-show="show_noti">
-        <div class="text-xl bg-gray-500 w-1/2 text-center">Error:<span :class="error===0?'text-green-600':'text-red-600'">{{error}}</span></div>
-     <div class="w-1/2 h-32 bg-gray-500 flex justify-evenly shadow-2xl py-8 px-4">
-         <button class="outline-none px-2 py-1 rounded-xl text-white bg-green-500" @click="GoToNext">Go To next lesson</button>
-         <button class="outline-none px-2 py-1 rounded-xl text-white bg-green-500" @click="TryAgain">Try Again</button>
-     </div>
+    <div class="absolute flex flex-col items-center justify-center h-full z-10 w-full transparent-shade"
+         v-show="show_noti">
+        <div class="text-xl bg-gray-500 w-1/2 text-center">Error:<span
+                :class="error===0?'text-green-600':'text-red-600'">{{error}}</span></div>
+        <div class="w-1/2 h-32 bg-gray-500 flex justify-evenly shadow-2xl py-8 px-4">
+            <button class="outline-none px-2 py-1 rounded-xl text-white bg-green-500" @click="GoToNext">Go To next
+                lesson
+            </button>
+            <button class="outline-none px-2 py-1 rounded-xl text-white bg-green-500" @click="TryAgain">Try Again
+            </button>
+        </div>
     </div>
-    <div class="w-8/12 items-center flex justify-center"><img :src="'/typing/public/images/'+image+'.png'" class="w-10/12"> </div>
+    <div class="w-8/12 items-center flex justify-center"><img :src="'/'+host+'images/'+image+'.png'"
+                                                              class="w-10/12"></div>
+    <div class="w-0 h-0" >
+
+        <img :src="'/'+host+'images/'+a+'.png'" alt="" v-for="a in preloadImage"> </div>
 </div>
 <!--<script src="dist/main.js"></script>-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js" integrity="sha512-IQLehpLoVS4fNzl7IfH8Iowfm5+RiMGtHykgZJl9AWMgqx0AmJ6cRWcB+GaGVtIsnC4voMfm8f2vwtY+6oPjpQ==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/ScrollTrigger.min.js" integrity="sha512-wK2NuxEyN/6s53M8G7c6cRUXvkeV8Uh5duYS06pAdLq4ukc72errSIyyGQGYtzWEzvVGzGSWg8l79e0VkTJYPw==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/ScrollToPlugin.min.js" integrity="sha512-nTHzMQK7lwWt8nL4KF6DhwLHluv6dVq/hNnj2PBN0xMl2KaMm1PM02csx57mmToPAodHmPsipoERRNn4pG7f+Q==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"
+        integrity="sha512-IQLehpLoVS4fNzl7IfH8Iowfm5+RiMGtHykgZJl9AWMgqx0AmJ6cRWcB+GaGVtIsnC4voMfm8f2vwtY+6oPjpQ=="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/ScrollTrigger.min.js"
+        integrity="sha512-wK2NuxEyN/6s53M8G7c6cRUXvkeV8Uh5duYS06pAdLq4ukc72errSIyyGQGYtzWEzvVGzGSWg8l79e0VkTJYPw=="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/ScrollToPlugin.min.js"
+        integrity="sha512-nTHzMQK7lwWt8nL4KF6DhwLHluv6dVq/hNnj2PBN0xMl2KaMm1PM02csx57mmToPAodHmPsipoERRNn4pG7f+Q=="
+        crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/smooth-scrollbar/8.5.3/smooth-scrollbar.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/smooth-scrollbar/8.3.1/plugins/overscroll.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
-//         const app = Vue.createApp({
-//
-//         data(){
-//            return{ text:false,
-//             message: '',
-//             array:['what','are','you'],
-//                lesson1:['Dancing'],
-//             }
-//         },
-//         methods:{
-//             getdata:async()=>{
-//                 const response=await fetch('/public/lesson1.json');
-//                 const data=await response.json();
-// this.lesson1=await data;
-//                 console.log('lesson1 is',this.lesson1)
-//             },
-//             submit:function (){
-//                 // localStorage.setItem('hello',this.message);
-//                this.array.unshift(this.message);
-//                this.message='';
-//             }
-//         },
-//         computed:{
-//
-//         },
-//         mounted(){
-//       fetch('/public/lesson1.json').then(async(res)=>{
-//           this.lesson1=await res.json();
-//       })
-//
-//         },
-//         watch:{
-//             message:function(){
-//                 let a = this.message.trim();
-//                 let b= this.lesson1;
-//                for(let i=0;i<a.length;i++){
-//                    if(a[i]!==b[i].value){
-//                        this.lesson1[i].status='error';
-//                    }
-//                   if(a[i]===b[i].value){
-//                       console.log(a[i]===b[i].value)
-//                        this.lesson1[i].status='done';
-//                    }
-//
-//                   console.log(this.lesson1[i].status);
-//
-//                 }
-//             }
-//         }
-//     }).mount('#app');
-// const axios = require('axios');
-const app = new Vue({
-     el:'#app',
-    data:{
-        text:false,
+    //         const app = Vue.createApp({
+    //
+    //         data(){
+    //            return{ text:false,
+    //             message: '',
+    //             array:['what','are','you'],
+    //                lesson1:['Dancing'],
+    //             }
+    //         },
+    //         methods:{
+    //             getdata:async()=>{
+    //                 const response=await fetch('/public/lesson1.json');
+    //                 const data=await response.json();
+    // this.lesson1=await data;
+    //                 console.log('lesson1 is',this.lesson1)
+    //             },
+    //             submit:function (){
+    //                 // localStorage.setItem('hello',this.message);
+    //                this.array.unshift(this.message);
+    //                this.message='';
+    //             }
+    //         },
+    //         computed:{
+    //
+    //         },
+    //         mounted(){
+    //       fetch('/public/lesson1.json').then(async(res)=>{
+    //           this.lesson1=await res.json();
+    //       })
+    //
+    //         },
+    //         watch:{
+    //             message:function(){
+    //                 let a = this.message.trim();
+    //                 let b= this.lesson1;
+    //                for(let i=0;i<a.length;i++){
+    //                    if(a[i]!==b[i].value){
+    //                        this.lesson1[i].status='error';
+    //                    }
+    //                   if(a[i]===b[i].value){
+    //                       console.log(a[i]===b[i].value)
+    //                        this.lesson1[i].status='done';
+    //                    }
+    //
+    //                   console.log(this.lesson1[i].status);
+    //
+    //                 }
+    //             }
+    //         }
+    //     }).mount('#app');
+    // const axios = require('axios');
+    const app = new Vue({
+        el: '#app',
+        data: {
+            text: false,
             message: '',
-            array:['what','are','you'],
-        currentLesson:1,
-            lesson1:['Loading'],
-            session:0,
-        show_noti:false,
-        dropDown:false,
-        error:0,
-        current_error:0,
+            array: ['what', 'are', 'you'],
+            currentLesson: 1,
+            lesson1: ['Loading'],
+            session: 0,
+            show_noti: false,
+            dropDown: false,
+            error: 0,
+            current_error: 0,
+            host:'typing/public/',
+             preloadImage:['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',';',',',"'"]
 
-
-    },
-    methods:{
-
-        Load(index){
-            this.currentLesson=index;
-            fetch(`/typing/public/lesson${this.currentLesson}.json`).then(async(res)=>{
-                this.lesson1=await res.json();
-                console.log(this.lesson1)
-            })
-            this.session=0;
-            this.message='';
-            this.dropDown=false;
         },
-        GoToNext:function(){
-            this.currentLesson+=1;
-            fetch(`/typing/public/lesson${this.currentLesson}.json`).then(async(res)=>{
-                this.lesson1=await res.json();
-                console.log(this.lesson1)
-            })
-            this.session=0;
-            this.message='';
-            this.show_noti=false;
-        },
-        TryAgain:function(){
-            this.session=0;
-            this.message='';
-            this.current_error=0;
-            fetch(`/typing/public/lesson${this.currentLesson}.json`).then(async(res)=>{
-                this.lesson1=await res.json();
-                console.log(this.lesson1)
-                this.show_noti=false;
-            })
+        methods: {
 
-        }
-    },
-    computed:{
-            image:{
-                get(){
-                    let a=this.message;
-                    let b=this.combination;
+            Load(index) {
+                this.currentLesson = index;
+                fetch(`/${this.host+'lesson'+this.currentLesson}.json`).then(async (res) => {
+                    this.lesson1 = await res.json();
+                    console.log(this.lesson1)
+                })
+                this.session = 0;
+                this.message = '';
+                this.dropDown = false;
+            },
+            GoToNext: function () {
+                this.currentLesson += 1;
+                fetch(`/${this.host+'lesson'+this.currentLesson}.json`).then(async (res) => {
+                    this.lesson1 = await res.json();
+                    console.log(this.lesson1)
+                })
+                this.session = 0;
+                this.message = '';
+                this.show_noti = false;
+            },
+            TryAgain: function () {
+                this.session = 0;
+                this.message = '';
+                this.current_error = 0;
+                fetch(`/${this.host+'lesson'+this.currentLesson}.json`).then(async (res) => {
+                    this.lesson1 = await res.json();
+                    console.log(this.lesson1)
+                    this.show_noti = false;
+                })
+
+            }
+        },
+        computed: {
+            image: {
+                get() {
+                    let a = this.message;
+                    let b = this.combination;
                     // console.log(b.length)
-                    if(a.length!==b.length)
-                    {
+                    if (a.length !== b.length) {
                         return b[a.length].value;
                         // console.log('image',this.image);
-                    }else {
+                    } else {
                         return 'normal';
                     }
                 },
-                set(){
+                set() {
 
                 }
             },
-           image_asset:{
-               get:function(){
-                   console.log(this.image);
-                   return 'typing/public/images/'+this.image+'.png';},
-               set:function(){}
-           },
-           input:function(){
-               let a=[];
-               let list=this.lesson1;
+            image_asset: {
+                get: function () {
+                    console.log(this.image);
+                    return this.host +'lesson'+ this.image + '.png';
+                },
+                set: function () {
+                }
+            },
+            input: function () {
+                let a = [];
+                let list = this.lesson1;
 
-               let b = this.message.trim();
-              if(b!=='') {
-                  for (let k = 0; k <= b.length; k++) {
-                      a.push(b[k]);
-                  }
-              }
+                let b = this.message.trim();
+                if (b !== '') {
+                    for (let k = 0; k <= b.length; k++) {
+                        a.push(b[k]);
+                    }
+                }
 
-                  return a;
+                return a;
 
-           },
+            },
 
-        combination:{
+            combination: {
 
-               get(){
+                get() {
 
-                   return this.lesson1[this.session];}
-        }
-    },
-    mounted(){
+                    return this.lesson1[this.session];
+                }
+            }
+        },
+        mounted() {
 
-        fetch(`/typing/public/lesson${this.currentLesson}.json`).then(async(res)=>{
-            this.lesson1=await res.json();
-            this.image=this.lesson1[this.session][0].value;
-            console.log(this.image)
-        })
-    },
-    watch:{
-        message:function(){
-            let a = this.message.trim();
-            let b= this.combination;
+            fetch(`${this.host+'lesson'+this.currentLesson}.json`).then(async (res) => {
+                this.lesson1 = await res.json();
+                this.image = this.lesson1[this.session][0].value;
+                console.log(this.image)
+            })
+            // for(let v in this.preloadImage){
             //
+            //     fetch(`${this.host+'images/'+this.preloadImage[v]}.png`).then(async(res)=>{
+            //         console.log(v);
+            //     })
+            // }
+        },
+        watch: {
+            message: function () {
+                let a = this.message.trim();
+                let b = this.combination;
+                //
 
-            if(this.current_error===0){
-                this.error=0;
-                if(a.length<=b.length){
-                    for(let i=0;i<a.length;i++){
-                        console.log(a.length)
+                if (this.current_error === 0) {
+                    this.error = 0;
+                    if (a.length <= b.length) {
+                        for (let i = 0; i < a.length; i++) {
+                            console.log(a.length)
 
-                        if(a[i]!==b[i].value){
-                            b[i].status='error';
-                            // console.log('error',this.error)
-                            this.error++;
-                            // console.log(this.error)
+                            if (a[i] !== b[i].value) {
+                                b[i].status = 'error';
+                                // console.log('error',this.error)
+                                this.error++;
+                                // console.log(this.error)
+                            }
+
+                            if (a[i] === b[i].value) {
+
+                                b[i].status = 'done';
+                            }
+                            if (i === b.length - 1) {
+                                //moveToNextSession
+                                if (this.session !== this.lesson1.length - 1) {
+                                    // console.log(this.session!==this.lesson1.length-1)
+                                    this.session += 1;
+                                    this.current_error = this.error;
+                                    // console.log('Current Error:',this.current_error)
+                                    this.message = '';
+                                } else {
+                                    this.image = 'normal'
+                                    this.show_noti = true;
+                                }
+                            }
                         }
+                    }
 
-                        if(a[i]===b[i].value){
+                } else {
+                    // console.log('what')
+                    this.error = this.current_error;
+                    if (a.length <= b.length) {
+                        for (let i = 0; i < a.length; i++) {
+                            if (a[i] !== b[i].value) {
+                                b[i].status = 'error';
+                                // console.log('error',this.error)
+                                this.error++;
+                                // console.log(this.error)
+                            }
 
-                            b[i].status='done';
-                        }
-                        if(i===b.length-1){
-                           //moveToNextSession
-                            if(this.session!==this.lesson1.length-1){
-                                // console.log(this.session!==this.lesson1.length-1)
-                                this.session+=1;
-                                this.current_error=this.error;
-                                // console.log('Current Error:',this.current_error)
-                                this.message='';
-                            }else {
-                                this.image='normal'
-                                this.show_noti=true;
+                            if (a[i] === b[i].value) {
+
+                                b[i].status = 'done';
+                            }
+                            if (i === b.length - 1) { //moveToNextSession
+                                if (this.session !== this.lesson1.length - 1) {
+                                    // console.log(this.session!==this.lesson1.length-1)
+                                    this.session += 1;
+                                    this.current_error = this.error;
+                                    // console.log('Current Error:',this.current_error)
+                                    this.message = '';
+                                } else {
+                                    this.show_noti = true;
+                                }
                             }
                         }
                     }
                 }
 
+
             }
-            else {
-                // console.log('what')
-                this.error=this.current_error;
-                if(a.length<=b.length){
-                    for(let i=0;i<a.length;i++){
-                        if(a[i]!==b[i].value){
-                            b[i].status='error';
-                            // console.log('error',this.error)
-                            this.error++;
-                            // console.log(this.error)
-                        }
-
-                        if(a[i]===b[i].value){
-
-                            b[i].status='done';
-                        }
-                        if(i===b.length-1){ //moveToNextSession
-                            if(this.session!==this.lesson1.length-1){
-                                // console.log(this.session!==this.lesson1.length-1)
-                                this.session+=1;
-                                this.current_error=this.error;
-                                // console.log('Current Error:',this.current_error)
-                                this.message='';
-                            }else {
-                                this.show_noti=true;
-                            }
-                        }
-                    }
-                }
-            }
-
-
         }
-    }
-});
+    });
 
 </script>
 </body>
