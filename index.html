@@ -234,7 +234,7 @@
         },
         mounted() {
 
-            fetch(`${this.host+'lesson'+this.currentLesson}.json`).then(async (res) => {
+            fetch(`/${this.host+'lesson'+this.currentLesson}.json`).then(async (res) => {
                 this.lesson1 = await res.json();
                 this.image = this.lesson1[this.session][0].value;
                 console.log(this.image)
